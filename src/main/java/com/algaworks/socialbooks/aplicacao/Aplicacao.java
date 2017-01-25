@@ -9,8 +9,8 @@ import com.algaworks.socialbooks.client.domain.Livro;
 
 public class Aplicacao {
 	public static void main(String[] args) throws ParseException {
-		
-		LivrosClient client = new LivrosClient();
+
+		LivrosClient client = new LivrosClient("http://localhost:8080", "chmulato", "caracore");
 		
 		List<Livro> listarLivros = client.listar();
 
@@ -30,5 +30,8 @@ public class Aplicacao {
 		String localizacao = client.salvar(livro);
 		
 		System.out.println("URI do livro salvo: " + localizacao);
+		
+		Livro livroBuscado = client.buscar(localizacao);
+		System.out.println("Livro buscado: " + livroBuscado.getNome());
 	}
 }

@@ -1,30 +1,34 @@
 package com.algaworks.socialbooks.aplicacao;
 
-import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import com.algaworks.socialbooks.client.LivrosClient;
+import com.algaworks.socialbooks.client.domain.Livro;
 
 public class Aplicacao {
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		
-		RestTemplate restTemplate = new RestTemplate();
+		LivrosClient client = new LivrosClient();
 		
-		// Implementação: Basic Authentication
-		//     user:password
-		// chmulato:caracore
-		RequestEntity<Void> request = RequestEntity
-				.get(URI.create("http://localhost:8080/livros"))
-				.header("Authorization", "Basic Y2htdWxhdG86Y2FyYWNvcmU=").build();
+		List<Livro> listarLivros = client.listar();
 
-		ResponseEntity<Livro[]> response = restTemplate.exchange(request, Livro[].class);
-
-		for(Livro livro : response.getBody()) {
+		for(Livro livro : listarLivros) {
 			System.out.println("Livro: " + livro.getNome());
 		}
 		
+		Livro livro = new Livro();
+		livro.setNome("Git passo-a-passo");
+		livro.setEditora("AlgaWorks");
+		
+		SimpleDateFormat publicacao = new SimpleDateFormat("dd/MM/yyyy");
+		livro.setPublicacao(publicacao.parse("01/01/2017"));
+		
+		livro.setResumo("Este livro aborda técnicas de desenvolvimento de APIs.");
+		
+		String localizacao = client.salvar(livro);
+		
+		System.out.println("URI do livro salvo: " + localizacao);
 	}
-
 }

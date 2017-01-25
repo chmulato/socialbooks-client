@@ -12,8 +12,8 @@ public class Aplicacao {
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		//     user: chmulato
-		// password: caracore
+		// Implementação: Basic Authentication
+		//     user:password
 		// chmulato:caracore
 		RequestEntity<Void> request = RequestEntity
 				.get(URI.create("http://localhost:8080/livros"))

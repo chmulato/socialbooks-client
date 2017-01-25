@@ -4,7 +4,7 @@ $(function() {
 				url: "http://localhost:8080/livros",
 				type: "get",
 				headers: {
-					"Authorization" : "Basic YWxnYXdvcmtzOnMzbmg0"
+					"Authorization" : "Basic Y2htdWxhdG86Y2FyYWNvcmU="
 				},
 				success: function(response) {
 					desenhaTabela(response);

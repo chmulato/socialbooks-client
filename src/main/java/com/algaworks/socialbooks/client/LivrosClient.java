@@ -23,11 +23,14 @@ public class LivrosClient {
 	
 	private String AUTHORIZATION = "Authorization";
 	
+	// Implementação: Basic Authentication
+	//     user:password
+	// chmulato:caracore
 	public LivrosClient(String url, String usuario, String senha) {
 		restTemplate = new RestTemplate();
 		
 		URI_BASE = url.concat(URN_BASE);
-		
+	
 		String credencialAux = usuario + ":" + senha;
 		
 		credencial = "Basic " + Base64.getEncoder()
@@ -36,9 +39,6 @@ public class LivrosClient {
 	}
 	
 	public List<Livro> listar() {
-		// Implementação: Basic Authentication
-		//     user:password
-		// chmulato:caracore
 		RequestEntity<Void> request = RequestEntity
 				.get(URI.create(URI_BASE))
 				.header(AUTHORIZATION, credencial)
